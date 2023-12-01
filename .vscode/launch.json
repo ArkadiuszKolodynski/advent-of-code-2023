@@ -1,0 +1,82 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'puzzle1'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=puzzle1",
+                    "--package=puzzle1"
+                ],
+                "filter": {
+                    "name": "puzzle1",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'puzzle1'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=puzzle1",
+                    "--package=puzzle1"
+                ],
+                "filter": {
+                    "name": "puzzle1",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'puzzle2'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=puzzle2",
+                    "--package=puzzle2"
+                ],
+                "filter": {
+                    "name": "puzzle2",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'puzzle2'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=puzzle2",
+                    "--package=puzzle2"
+                ],
+                "filter": {
+                    "name": "puzzle2",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
