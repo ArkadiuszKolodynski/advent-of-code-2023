@@ -3,7 +3,7 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 fn main() {
-    if let Ok(lines) = read_lines("./assets/input.txt") {
+    if let Ok(lines) = read_lines("../input.txt") {
         let mut sum = 0;
         for line in lines {
             if let Ok(ip) = line {
