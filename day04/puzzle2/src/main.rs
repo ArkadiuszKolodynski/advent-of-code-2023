@@ -34,12 +34,12 @@ fn main() {
                     .map(|x| x.parse::<i32>().unwrap())
                     .collect::<Vec<i32>>();
 
-                let mut matches = 0;
-                for winning_number in winning_numbers {
+                let matches = winning_numbers.into_iter().fold(0, |acc, winning_number| {
                     if card_numbers.contains(&winning_number) {
-                        matches += 1;
+                        return acc + 1;
                     }
-                }
+                    acc
+                });
 
                 i += 1;
                 for j in 0..matches {
