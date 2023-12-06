@@ -2,12 +2,11 @@ use std::fs::read_to_string;
 
 fn main() {
     let input = read_input("../input.txt");
-    let races = parse_races(&input);
-    let product: u32 = races.into_iter().map(calculate_wins_count).product();
-    println!("Product: {}", product);
+    let race = parse_race(&input);
+    println!("Wins count: {}", calculate_wins_count(race));
 }
 
-fn calculate_wins_count((time, distance): (u32, u32)) -> u32 {
+fn calculate_wins_count((time, distance): (u64, u64)) -> u64 {
     (1..time).fold(0, |wins, i| {
         if (time - i) * i > distance {
             wins + 1
@@ -25,19 +24,16 @@ fn read_input(path: &str) -> String {
     }
 }
 
-fn parse_races(input: &str) -> Vec<(u32, u32)> {
-    let lines: Vec<Vec<u32>> = input
+fn parse_race(input: &str) -> (u64, u64) {
+    let lines: Vec<String> = input
         .split("\n")
         .map(|line| {
             let (_, values) = line.split_once(":").unwrap();
             values
                 .trim()
                 .split_whitespace()
-                .map(|value| value.parse().unwrap())
-                .collect()
+                .fold(String::new(), |acc, value| (acc + value))
         })
         .collect();
-    (0..lines[0].len())
-        .map(|i| (lines[0][i], lines[1][i]))
-        .collect()
+    (lines[0].parse().unwrap(), lines[1].parse().unwrap())
 }
