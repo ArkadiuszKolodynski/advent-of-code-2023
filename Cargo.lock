@@ -85,6 +85,10 @@ name = "day08-puzzle2"
 version = "0.1.0"
 
 [[package]]
+name = "day09-puzzle1"
+version = "0.1.0"
+
+[[package]]
 name = "double-map"
 version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
