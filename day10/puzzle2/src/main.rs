@@ -27,7 +27,26 @@ fn main() {
         current_move = next_move;
     }
 
-    println!("Steps count: {}", pipe_loop.len() / 2);
+    // https://en.wikipedia.org/wiki/Pick%27s_theorem
+    let polygon_area = shoelace_formula(&pipe_loop);
+    let polygon_boundary_points_count = pipe_loop.len();
+    let interior_points_count = polygon_area - (polygon_boundary_points_count / 2) + 1;
+
+    println!("Interior points count: {}", interior_points_count);
+}
+
+fn shoelace_formula(vertices: &Vec<(usize, usize)>) -> usize {
+    let mut sum1 = 0.0;
+    let mut sum2 = 0.0;
+    let n = vertices.len();
+
+    for i in 0..n {
+        let j = (i + 1) % n;
+        sum1 += vertices[i].0 as f64 * vertices[j].1 as f64;
+        sum2 += vertices[j].0 as f64 * vertices[i].1 as f64;
+    }
+
+    ((sum1 - sum2) / 2.0).abs() as usize
 }
 
 fn get_next_move(
