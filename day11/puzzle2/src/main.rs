@@ -38,7 +38,7 @@ fn main() {
     let points = get_points(&grid_wrapper);
     let pairs = get_pairs(&points);
 
-    const EXPANSION: usize = 2;
+    const EXPANSION: usize = 1_000_000;
     let distances = get_distances(&pairs, &rows_to_expand, &columns_to_expand, &EXPANSION);
 
     println!("Sum: {}", distances.iter().sum::<usize>());
