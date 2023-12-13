@@ -76,6 +76,7 @@ fn find_reflection(
     i: usize,
     is_first_half: &bool,
 ) -> Option<usize> {
+    let mut diffs = 0;
     let (mut j, mut k) = (i as i32, i + 1);
     let reflection_line = 'found_ref: {
         while if is_first_half == &true {
@@ -84,7 +85,13 @@ fn find_reflection(
             k < len
         } {
             if grid_wrapper.get_column(j as usize)? != grid_wrapper.get_column(k)? {
-                break 'found_ref None;
+                diffs += count_diffrences_between_two_char_vectors(
+                    &grid_wrapper.get_column(j as usize)?,
+                    &grid_wrapper.get_column(k)?,
+                );
+                if diffs > 1 {
+                    break 'found_ref None;
+                }
             }
             j -= 1;
             k += 1;
@@ -92,7 +99,17 @@ fn find_reflection(
         Some(i + 1)
     };
 
-    reflection_line
+    if diffs == 1 { reflection_line } else { None }
+}
+
+fn count_diffrences_between_two_char_vectors(v1: &Vec<char>, v2: &Vec<char>) -> usize {
+    let mut diffs = 0;
+    for i in 0..v1.len() {
+        if v1[i] != v2[i] {
+            diffs += 1;
+        }
+    }
+    diffs
 }
 
 fn parse_input<P>(filename: P) -> Vec<Grid>
