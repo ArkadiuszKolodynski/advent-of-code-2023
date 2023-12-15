@@ -2,7 +2,6 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
-#[derive(Debug)]
 struct Grid {
     grid: Vec<Vec<char>>,
 }
@@ -43,19 +42,8 @@ fn main() {
     let mut grid_wrapper = parse_input("../input.txt");
 
     for i in 0..grid_wrapper.grid[0].len() {
-        let mut col = grid_wrapper.get_column(i).unwrap();
-        let mut j = 0;
-        while j < col.len() {
-            if col[j] == 'O' {
-                let mut k = j;
-                while k > 0 && col[k - 1] != '#' {
-                    col.swap(k, k - 1);
-                    k -= 1;
-                }
-            }
-            j += 1;
-        }
-        grid_wrapper.set_column(i, col.clone());
+        let col = grid_wrapper.get_column(i).unwrap();
+        grid_wrapper.set_column(i, sort_vec(col));
     }
 
     let sum: usize = (0..grid_wrapper.grid.len())
@@ -67,6 +55,17 @@ fn main() {
         .sum();
 
     println!("Sum: {}", sum);
+}
+
+fn sort_vec(vec: Vec<char>) -> Vec<char> {
+    vec.split(|c| *c == '#')
+        .map(|slice| {
+            let mut sorted_slice = slice.to_vec();
+            sorted_slice.sort_by(|a, b| b.cmp(a));
+            sorted_slice
+        })
+        .collect::<Vec<Vec<char>>>()
+        .join(&'#')
 }
 
 fn parse_input<P>(filename: P) -> Grid
