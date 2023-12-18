@@ -5,7 +5,7 @@ use std::path::Path;
 fn main() {
     let input = parse_input("../input.txt");
 
-    let polygon_boundary_points_count: i32 = input.iter().map(|(_, steps)| steps).sum();
+    let polygon_boundary_points_count: i128 = input.iter().map(|(_, steps)| steps).sum();
     let mut polygon_boundary_points = Vec::new();
     for (direction, steps) in input {
         let (last_row, last_col) = if !polygon_boundary_points.is_empty() {
@@ -38,7 +38,7 @@ fn main() {
     );
 }
 
-fn shoelace_formula(vertices: &Vec<(i32, i32)>) -> i32 {
+fn shoelace_formula(vertices: &Vec<(i128, i128)>) -> i128 {
     let mut sum1 = 0;
     let mut sum2 = 0;
     let n = vertices.len();
@@ -52,7 +52,7 @@ fn shoelace_formula(vertices: &Vec<(i32, i32)>) -> i32 {
     ((sum1 - sum2) / 2).abs()
 }
 
-fn parse_input<P>(filename: P) -> Vec<(char, i32)>
+fn parse_input<P>(filename: P) -> Vec<(char, i128)>
 where
     P: AsRef<Path>,
 {
@@ -60,9 +60,19 @@ where
     for line in read_lines(filename) {
         if let Ok(ip) = line {
             let line = ip;
-            let mut splitted_line = line.split_whitespace();
-            let direction = splitted_line.next().unwrap().chars().next().unwrap();
-            let steps = splitted_line.next().unwrap().parse::<i32>().unwrap();
+            let splitted_line = line.split_whitespace();
+            let last_str = splitted_line.last().unwrap();
+            let direction = match last_str.chars().nth(7).unwrap() {
+                '0' => 'R',
+                '1' => 'D',
+                '2' => 'L',
+                '3' => 'U',
+                _ => panic!("Invalid direction"),
+            };
+            let hex = last_str[2..7].to_string();
+            let Ok(steps) = i128::from_str_radix(&hex, 16) else {
+                panic!("Invalid steps")
+            };
             result.push((direction, steps));
         }
     }
