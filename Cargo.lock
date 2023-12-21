@@ -171,9 +171,10 @@ version = "0.1.0"
 [[package]]
 name = "day19-puzzle2"
 version = "0.1.0"
-dependencies = [
- "regex",
-]
+
+[[package]]
+name = "day20-puzzle1"
+version = "0.1.0"
 
 [[package]]
 name = "double-map"
