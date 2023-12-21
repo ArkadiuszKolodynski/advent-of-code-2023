@@ -41,4 +41,5 @@ members = [
     "day19/puzzle2",
     "day20/puzzle1",
     "day20/puzzle2",
+    "day21/puzzle1",
 ]
