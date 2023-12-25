@@ -44,13 +44,13 @@ fn walk(grid: &Grid, start: (isize, isize), end: (isize, isize)) -> isize {
     }
 
     let mut graph = HashMap::new();
-    let dirs = HashMap::from([
-        ('^', vec![(-1, 0)]),
-        ('v', vec![(1, 0)]),
-        ('<', vec![(0, -1)]),
-        ('>', vec![(0, 1)]),
-        ('.', vec![(-1, 0), (1, 0), (0, -1), (0, 1)]),
-    ]);
+    // let dirs = HashMap::from([
+    //     ('^', vec![(-1, 0), (1, 0), (0, -1), (0, 1)]),
+    //     ('v', vec![(-1, 0), (1, 0), (0, -1), (0, 1)]),
+    //     ('<', vec![(-1, 0), (1, 0), (0, -1), (0, 1)]),
+    //     ('>', vec![(-1, 0), (1, 0), (0, -1), (0, 1)]),
+    //     ('.', vec![(-1, 0), (1, 0), (0, -1), (0, 1)]),
+    // ]);
 
     for (starting_row, starting_column) in &points {
         let mut stack = VecDeque::new();
@@ -69,7 +69,7 @@ fn walk(grid: &Grid, start: (isize, isize), end: (isize, isize)) -> isize {
                 continue;
             }
 
-            for (dr, dc) in dirs.get(&grid[row as usize][column as usize]).unwrap() {
+            for (dr, dc) in [(-1, 0), (1, 0), (0, -1), (0, 1)] {
                 let new_row = row + dr;
                 let new_column = column + dc;
 
